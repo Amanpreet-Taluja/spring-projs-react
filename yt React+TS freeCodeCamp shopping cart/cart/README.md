@@ -1,22 +1,24 @@
 # IMPORTS:
 npm i @material-ui/core @material-ui/icons \
 npm i react-query \
-npm i styled-components @types/styled-components \
+npm i styled-components @types/styled-components 
 
 
 # INDEX FOR REACT-QUERY:
-import {QueryClient,QueryClientProvider} from 'react-query';
-const client = new QueryClient();
-ReactDOM.render(
-<React.StrictMode>
-<QueryClientProvider client={client}><App /></QueryClientProvider>
-</React.StrictMode>,
-document.getElementById('root')
-);
+import {QueryClient,QueryClientProvider} from 'react-query'; \
+const client = new QueryClient(); \
+ReactDOM.render( \
+<React.StrictMode> \
+<QueryClientProvider client={client}><App /></QueryClientProvider> \
+</React.StrictMode>, \
+document.getElementById('root') \
+); 
 
 
 # USE OF REACT QUERY IN COMPONENT:
 import { useQuery } from "react-query";
+
+
 const { data, isLoading, error } = useQuery<CartItemType[]>(
 "products",
 getProducts
