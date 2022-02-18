@@ -16,34 +16,29 @@ document.getElementById('root') \
 
 
 # USE OF REACT QUERY IN COMPONENT:
-import { useQuery } from "react-query";
-
-
-const { data, isLoading, error } = useQuery<CartItemType[]>(
-"products",
-getProducts
-);
-console.log(data);
+import { useQuery } from "react-query"; \
+const { data, isLoading, error } = useQuery<CartItemType[]>("products",getProducts);  \
+console.log(data); \
 
 
 # LINEAR PROGRESS BAR WHILE LOADING:
-import LinearProgress from "@material-ui/core/LinearProgress";
-if (isLoading) return <LinearProgress />;
+import LinearProgress from "@material-ui/core/LinearProgress"; \
+if (isLoading) return <LinearProgress />; \
 
 
 # FETCHING DATA FROM API:
-export type CartItemType = {
-id: number;
-category: string;
-description: string;
-image: string;
-price: number;
-title: string;
-amount: number;
-};
+export type CartItemType = { \
+id: number; \
+category: string; \
+description: string; \
+image: string; \
+price: number; \
+title: string; \
+amount: number; \
+}; \
 
-const getProducts = async (): Promise<CartItemType[]> =>
-await (await fetch("https://fakestoreapi.com/products")).json();
+const getProducts = async (): Promise<CartItemType[]> =>  \
+await (await fetch("https://fakestoreapi.com/products")).json(); \
 
 
 # USE DRAWER AS RIGHT SIDEBAR:
