@@ -62,12 +62,12 @@ import Badge from "@material-ui/core/Badge"; \
 
 # MAKE A GRID AND SET ITEM VALUE:
 import Grid from "@material-ui/core/Grid"; \
-<Grid container spacing={3}> \
-{data?.map((item: CartItemType) => ( \
-<Grid item key={item.id} xs={12} sm={4}> \
-<Item item={item} handleAddToCart={handleAddToCart} /> \
-</Grid> \
-))} \
+<Grid container spacing={3}> 
+{data?.map((item: CartItemType) => ( 
+<Grid item key={item.id} xs={12} sm={4}> 
+<Item item={item} handleAddToCart={handleAddToCart} /> 
+</Grid> 
+))} 
 </Grid>
 
 
