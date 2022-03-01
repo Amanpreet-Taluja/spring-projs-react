@@ -35,9 +35,9 @@ background-color: greenyellow;
 
 # Hide button typing a msg
 
-.chat\_\_footer > form > button {
+````.chat__footer > form > button {
 display: none;
-}
+}```
 
 # Change styles of MUI buttons to blend them in background
 
@@ -56,3 +56,4 @@ a{
 text-decoration: none !important;
 color:black;
 }
+````
