@@ -35,7 +35,7 @@ background-color: greenyellow;
 
 # Hide button typing a msg
 
-````.chat__footer > form > button {
+```.chat__footer > form > button {
 display: none;
 }```
 
