@@ -35,16 +35,22 @@ background-color: greenyellow;
 
 # Hide button typing a msg
 
-```.chat__footer > form > button {
+```
+
+.chat__footer > form > button {
 display: none;
-}```
+}
+
+```
 
 # Change styles of MUI buttons to blend them in background
 
-.chat\_\_footer > .MuiSvgIcon-root {
+```
+.chat__footer > .MuiSvgIcon-root {
 padding: 10px;
 color: gray;
 }
+```
 
 # Set up react router dom in index.js
 
@@ -56,4 +62,7 @@ a{
 text-decoration: none !important;
 color:black;
 }
-````
+
+```
+
+```
