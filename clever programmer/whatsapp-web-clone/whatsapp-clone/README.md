@@ -4,9 +4,7 @@ npm i @material-ui/icons
 
 # Make buttons clickable
 
-<IconButton>
-    <SearchOutlined />
-</IconButton>
+Wrap with IconOutlined
 
 # Placing name above message
 
@@ -50,9 +48,7 @@ color: gray;
 
 # Set up react router dom in index.js
 
-<BrowserRouter>
-        <App />
-</BrowserRouter>
+Wrap with BrowserRouter
 
 # Remove underline from links
 
