@@ -1,13 +1,13 @@
 # Make a div Drag n Drop
 
-const onDragEnd=(result:DropResult)=>{
-const {source,destination}=result;
-if(!destination){
-return;
-}
-if(destination.droppableId===source.droppableId && destination.index===source.index) {
-return;
-}
+    const onDragEnd=(result:DropResult)=>{
+    const {source,destination}=result;
+    if(!destination){
+    return;
+    }
+    if(destination.droppableId===source.droppableId && destination.index===source.index) {
+    return;
+    }
 
     let add,active=todos,complete=completedTodos;
 
@@ -28,4 +28,4 @@ return;
     setCompletedTodos(complete);
     setTodos(active);
 
-}
+    }
