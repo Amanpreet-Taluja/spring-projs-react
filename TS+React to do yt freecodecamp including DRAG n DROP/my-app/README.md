@@ -1,5 +1,5 @@
 # Make a div Drag n Drop
-
+```
     const onDragEnd=(result:DropResult)=>{
     const {source,destination}=result;
     if(!destination){
@@ -29,3 +29,43 @@
     setTodos(active);
 
     }
+
+    <DragDropContext onDragEnd={onDragEnd}>
+    abc
+    </DragDropContext>
+```
+
+# 
+```
+
+```
+
+# 
+```
+
+```
+
+# 
+```
+
+```
+
+# 
+```
+
+```
+
+# 
+```
+
+```
+
+# 
+```
+
+```
+
+# 
+```
+
+```
