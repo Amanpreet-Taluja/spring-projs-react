@@ -7,20 +7,20 @@ import {
 import React from "react";
 import "./Header.css";
 import categories from "../../data/category";
-const Header = ({ category, setCategory, word, setWord }) => {
+const Header = ({ category, setCategory, word, setWord, light }) => {
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: "#fff",
+        main:light?'#000': "#fff",
       },
-      type: "dark",
+      type: light?'light':"dark",
     },
   });
 
-  const handleCatChange=(value)=>{
+  const handleCatChange = (value) => {
     setCategory(value);
-    setWord('');
-  }
+    setWord("");
+  };
   return (
     <div className="header">
       <span className="title">{word ? word : "Word Hunt"}</span>
@@ -38,7 +38,7 @@ const Header = ({ category, setCategory, word, setWord }) => {
             className="select"
             label="Language"
             value={category}
-            onChange={(e) =>handleCatChange(e.target.value) }
+            onChange={(e) => handleCatChange(e.target.value)}
           >
             {categories.map((option) => (
               <MenuItem key={option.label} value={option.label}>
