@@ -1,70 +1,142 @@
-# Getting Started with Create React App
+# API functions
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```
+import axios from "axios";
 
-## Available Scripts
+const url='https://covid19.mathdro.id/api';
 
-In the project directory, you can run:
+export const fetchData= async (country)=>{
+    let changeableUrl=url;
+    if(country){
+        changeableUrl=`${url}/countries/${country}`
+    }
+    try{
+        const {data} =await axios.get(changeableUrl);
+        const modifiedData={
+            confirmed:data.confirmed,
+            recovered:data.recovered,
+            deaths:data.deaths,
+            lastUpdate:data.lastUpdate,
+        }
+        return modifiedData;
+    }catch(error){
+        console.log(error);
+    }
+}
+```
 
-### `npm start`
+```
+import { fetchData } from "./api";
+const handleCountryChange = async (value) => {
+    const response = await fetchData(value);
+    setCountry(value);
+    setData(response);
+  };
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Usage of Countup for blinking numbers
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+import CountUp from "react-countup";
+<CountUp
+    start={0}
+    end={data.confirmed?.value}
+    duration={2.5}
+    separator=","
+/>
+```
 
-### `npm test`
+# Usage of Grid and CardContent
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+import { Card, CardContent, Grid, Typography } from "@material-ui/core";
+<Grid container spacing={1} justifyContent="center">
+        <Grid
+          item
+          component={Card}
+          xs={12}
+          md={3}
+          className={cx(styles.card, styles.infected)}
+        >
+        <CardContent>
+            <Typography color="textSecondary" gutterBottom>
+              Infected
+            </Typography>
+            <Typography variant="h5">
+              <CountUp
+                start={0}
+                end={data.confirmed?.value}
+                duration={2.5}
+                separator=","
+              />
+            </Typography>
+            <Typography color="textSecondary">
+              {new Date(data.lastUpdate).toDateString()}
+            </Typography>
+            <Typography variant="body2">Number of active cases</Typography>
+          </CardContent>
+        </Grid>
+</Grid>
+```
 
-### `npm run build`
+# Use multiple classes when using styles
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+import cx from "classnames";
+className={cx(styles.card, styles.infected)}
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Use of Line Chart
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+import { Chart as ChartJS } from "chart.js/auto";
+import { Bar, Line } from "react-chartjs-2";
 
-### `npm run eject`
+const lineChart =(
+    <Line
+      data={{
+        labels: dailyData.map(({ date }) => date),
+        datasets: [
+          {
+            data: dailyData.map(({ confirmed }) => confirmed.total),
+            label: "Infected",
+            borderColor: "#3333ff",
+            fill: true,
+          },
+          {
+            data: dailyData.map(({ deaths }) => deaths.total),
+            label: "Deaths",
+            borderColor: "red",
+            backgroundColor: "rgba(255,0,0,0.5)",
+            fill: true,
+          },
+        ],
+      }}
+    />
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Use of Bar Chart
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+  const barChart = (
+    <Bar
+      data={{
+        labels: ["Infected", "Recovered", "Deaths"],
+        datasets: [
+          {
+            label: "People",
+            backgroundColor: [
+              "rgba(0,0,255,0.5)",
+              "rgba(0,255,0,0.5)",
+              "rgba(255,0,0,0.5)",
+            ],
+            data: [data.confirmed.value, data.recovered.value, data.deaths.value],
+          },
+        ],
+      }}
+      options={{
+        legend: { display: false },
+        title: { display: true, text: `Current state in ${country}` },
+      }}
+    />
+```
