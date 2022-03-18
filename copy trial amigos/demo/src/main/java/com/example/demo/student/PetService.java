@@ -19,10 +19,7 @@ public class PetService {
     }
 
     public void addPet(Pet pet) {
-        Optional<Pet> petOptional = petRepository.findPetById(pet.getId());
-        if(petOptional.isPresent()){
-            throw new IllegalStateException("id taken");
-        }
+
         petRepository.save(pet);
     }
 

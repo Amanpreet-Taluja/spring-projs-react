@@ -2,38 +2,40 @@ package com.example.demo.student;
 
 import javax.persistence.*;
 
-@Entity
-@Table
-public class Pet {
-    @Id
-    @SequenceGenerator(
-            name="student_sequence",
-            sequenceName="student_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator="student_sequence"
-    )
-    private Integer id;
-    private Integer petId;
-    private Integer quantity;
-    private String shipDate;
-    private String status;
-    private Boolean complete;
+import java.util.Arrays;
 
+@Entity
+@Table(name="pets")
+public class Pet {
+
+    @Id
+    @Column(name = "id")
+    private Integer id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+    private String name;
+    private String[]  photoUrls;
+    private String status;
 
     public Pet() {
     }
 
-    public Pet(Integer id, Integer petId, Integer quantity, String shipDate, String status, Boolean complete) {
+    public Pet(Integer id, String name, String[] photoUrls, String status) {
         this.id = id;
-        this.petId = petId;
-        this.quantity = quantity;
-        this.shipDate = shipDate;
+        this.name = name;
+        this.photoUrls = photoUrls;
         this.status = status;
-        this.complete = complete;
     }
+
+    public Pet(Integer id, Category category, String name, String[] photoUrls, String status) {
+        this.id = id;
+        this.category = category;
+        this.name = name;
+        this.photoUrls = photoUrls;
+        this.status = status;
+    }
+
 
     public Integer getId() {
         return id;
@@ -43,28 +45,28 @@ public class Pet {
         this.id = id;
     }
 
-    public Integer getPetId() {
-        return petId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setPetId(Integer petId) {
-        this.petId = petId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public String getName() {
+        return name;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getShipDate() {
-        return shipDate;
+    public String[] getPhotoUrls() {
+        return photoUrls;
     }
 
-    public void setShipDate(String shipDate) {
-        this.shipDate = shipDate;
+    public void setPhotoUrls(String[] photoUrls) {
+        this.photoUrls = photoUrls;
     }
 
     public String getStatus() {
@@ -75,24 +77,17 @@ public class Pet {
         this.status = status;
     }
 
-    public Boolean getComplete() {
-        return complete;
-    }
-
-    public void setComplete(Boolean complete) {
-        this.complete = complete;
-    }
-
     @Override
     public String toString() {
         return "Pet{" +
                 "id=" + id +
-                ", petId=" + petId +
-                ", quantity=" + quantity +
-                ", shipDate='" + shipDate + '\'' +
+                ", category=" + category +
+                ", name='" + name + '\'' +
+                ", photoUrls=" + Arrays.toString(photoUrls) +
                 ", status='" + status + '\'' +
-                ", complete=" + complete +
                 '}';
     }
+
+
 }
 

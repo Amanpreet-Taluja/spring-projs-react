@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path="api/v1/pet")
+@RequestMapping(path="/pet")
 
 
 public class PetController {
@@ -33,7 +33,7 @@ public class PetController {
 
     @GetMapping(value = "/getapi")
     public String getPetsFromApi(){
-        String url="https://petstore.swagger.io/v2/store/order/3";
+        String url="https://petstore.swagger.io/v2/pet/500";
         WebClient client = WebClient.create();
         try {
             WebClient.ResponseSpec responseSpec = client.get()
@@ -41,18 +41,23 @@ public class PetController {
                     .retrieve();
             Mono<Pet> responseBody = responseSpec.bodyToMono(Pet.class);
             Integer id=responseBody.map(pet -> pet.getId()).block();
-            Integer petId=responseBody.map(pet -> pet.getPetId()).block();
-            Integer quantity=responseBody.map(pet -> pet.getQuantity()).block();
-            String shipDate=responseBody.map(pet -> pet.getShipDate()).block();
+            String name=responseBody.map(pet -> pet.getName()).block();
             String status=responseBody.map(pet -> pet.getStatus()).block();
-            Boolean complete=responseBody.map(pet -> pet.getComplete()).block();
-            Pet p=new Pet(id,petId,quantity,shipDate,status,complete);
+            String[] photoUrls=responseBody.map(pet -> pet.getPhotoUrls()).block();
+            Integer category_Id=responseBody.map(pet ->pet.getCategory().getId()).block();
+            String category_name=responseBody.map(pet -> pet.getCategory().getName()).block();
+            Category cat=new Category(category_Id,category_name);
+            Pet p=new Pet(id,cat,name,photoUrls,status);
+            /*Pet p=new Pet(id,name,photoUrls,status);*/
             petService.addPet(p);
+            /*
+            */
+
             return "Done";
         }
         catch(java.lang.Exception e)
         {
-            return "error";
+            return e.getMessage();
         }
 
 
@@ -69,8 +74,6 @@ public class PetController {
             return headerValue;
         }
         */
-
-
 
     }
 

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PetRepository extends JpaRepository<Pet,Long> {
+public interface CategoryRepository extends JpaRepository<Pet,Long> {
 }
