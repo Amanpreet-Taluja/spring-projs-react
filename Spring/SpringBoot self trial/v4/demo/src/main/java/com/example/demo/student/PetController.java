@@ -33,7 +33,7 @@ public class PetController {
 
     @GetMapping(value = "/getapi")
     public String getPetsFromApi(){
-        String url="https://petstore.swagger.io/v2/pet/367";
+        String url="https://petstore.swagger.io/v2/pet/9223372000668918000";
         WebClient client = WebClient.create();
         try {
             WebClient.ResponseSpec responseSpec = client.get()
@@ -47,7 +47,8 @@ public class PetController {
             Integer category_Id=responseBody.map(pet ->pet.getCategory().getId()).block();
             String category_name=responseBody.map(pet -> pet.getCategory().getName()).block();
             Category cat=new Category(category_Id,category_name);
-            Pet p=new Pet(id,cat,name,photoUrls,status);
+            List<Tags> tag=responseBody.map(pet->pet.getTags()).block();
+            Pet p=new Pet(id,cat,name,photoUrls,tag,status);
             /*Pet p=new Pet(id,name,photoUrls,status);*/
             petService.addPet(p);
             /*

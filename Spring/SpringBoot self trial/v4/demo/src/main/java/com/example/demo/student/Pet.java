@@ -1,8 +1,12 @@
 package com.example.demo.student;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name="pets")
@@ -16,15 +20,21 @@ public class Pet {
     private Category category;
     private String name;
     private String[]  photoUrls;
+    @OneToMany
+    @NotFound(action = NotFoundAction.IGNORE)
+    private List<Tags> tags;
     private String status;
 
     public Pet() {
     }
 
-    public Pet(Integer id, String name, String[] photoUrls, String status) {
+
+    public Pet(Integer id, Category category, String name, String[] photoUrls, List<Tags> tags, String status) {
         this.id = id;
+        this.category = category;
         this.name = name;
         this.photoUrls = photoUrls;
+        this.tags = tags;
         this.status = status;
     }
 
@@ -36,6 +46,13 @@ public class Pet {
         this.status = status;
     }
 
+    public List<Tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tags> tags) {
+        this.tags = tags;
+    }
 
     public Integer getId() {
         return id;
