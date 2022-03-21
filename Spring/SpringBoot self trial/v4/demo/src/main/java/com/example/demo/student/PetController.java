@@ -33,7 +33,7 @@ public class PetController {
 
     @GetMapping(value = "/getapi")
     public String getPetsFromApi(){
-        String url="https://petstore.swagger.io/v2/pet/9223372000668918000";
+        String url="https://petstore.swagger.io/v2/pet/10001";
         WebClient client = WebClient.create();
         try {
             WebClient.ResponseSpec responseSpec = client.get()
@@ -75,35 +75,6 @@ public class PetController {
             return headerValue;
         }
         */
-        /*
-        swagger: "2.0"
-    info:
-      title: API_ID optional-string
-      description: "Get the name of an airport from its three-letter IATA code."
-      version: "1.0.0"
-    host: DNS_NAME_OF_DEPLOYED_API
-    schemes:
-      - "https"
-    paths:
-      "/airportName":
-        get:
-          description: "Get the airport name for a given IATA code."
-          operationId: "airportName"
-          parameters:
-            -
-              name: iataCode
-              in: query
-              required: true
-              type: string
-          responses:
-            200:
-              description: "Success."
-              schema:
-                type: string
-            400:
-              description: "The IATA code is invalid or missing."
-         */
-        //https://github.com/kongchen/swagger-maven-example/blob/master/generated/swagger-ui/swagger.json
 
     }
 

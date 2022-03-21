@@ -20,7 +20,7 @@ public class Pet {
     private Category category;
     private String name;
     private String[]  photoUrls;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @NotFound(action = NotFoundAction.IGNORE)
     private List<Tags> tags;
     private String status;
